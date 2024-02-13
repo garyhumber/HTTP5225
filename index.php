@@ -9,25 +9,37 @@
 
 </head>
 <body>
+  <?php include('includes/nav.php'); ?>
   <?php 
     $connect = mysqli_connect('localhost', 'root', 'root', 'php');
     $query = 'SELECT id, fname, lname, marks, grade FROM students';
-
     $students = mysqli_query($connect, $query);
   ?>
     <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="display-4">
+            Students
+          </h1>
+        </div>
+      </div>
       <div class="row">
         <?php
           foreach($students as $student){
             if($student['marks'] < 80){
               $flag = 'bg-danger';
             }
-            echo '<div class="col-md-4">
+            echo '<div class="col-md-4 mt-2 mb-2">
                     <div class="card">
+                      <div class="card-header text-right">
+                        <form method="post" action="deleteStudent.php">
+                          <input type="hidden" name="id" value="' . $student['id'] . ' ">
+                          <button type="submit" name="delete">X</button>
+                        </form>
+                      </div>
                       <div class="card-body ' . $flag . '">
                         <h5 class="card-title">' . $student['fname'] . ' ' . $student['lname'] . '</h5>
-                        <p class="card-text"></p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <p class="card-text">Marks: ' . $student['marks'] . '</p>
                       </div>
                     </div>
                   </div>';
@@ -35,5 +47,7 @@
         ?>
       </div>
     </div>
+
+    <?php mysqli_close($connect); ?>
 </body>
 </html>
