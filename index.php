@@ -36,6 +36,10 @@
                           <input type="hidden" name="id" value="' . $student['id'] . ' ">
                           <button type="submit" name="delete">X</button>
                         </form>
+                        <form method="post" action="update.php">
+                          <input type="hidden" name="id" value="' . $student['id'] . ' ">
+                          <button type="submit" name="update">Update</button>
+                        </form>
                       </div>
                       <div class="card-body ' . $flag . '">
                         <h5 class="card-title">' . $student['fname'] . ' ' . $student['lname'] . '</h5>

@@ -10,12 +10,32 @@
 </head>
 <body>
   <?php include('includes/nav.php'); ?>
+  <?php 
+    if(isset($_POST['update'])){
+      // print_r($_POST);  
+      $id = $_POST["id"];
+      $connect = mysqli_connect('localhost', 'root', 'root', 'php');
+      $query = "SELECT id, fname, lname, marks, grade FROM students WHERE `id` = '$id'";
+      $student = mysqli_query($connect, $query);
+      if($student){
+        // echo "success";
+        // header('Location: index.php');
+        // exit;
+      }else
+      {
+        echo mysqli_error($connect);
+      }
+    }
+    else{
+      echo "You shouldn't be here!";
+    }
+  ?>
 
   <div class="container">
     <div class="row">
       <div class="col">
         <h1 class="display-4 mt-5 mb-4">
-          Add Grades
+          Update Grade
         </h1>
       </div>
     </div>
@@ -24,7 +44,7 @@
       <form method="POST" action="addStudent.php">
         <div class="mb-3">
           <label for="fname" class="form-label">First Name</label>
-          <input type="text" class="form-control" id="fname" name="fname" aria-describedby="First Name">
+          <input type="text" class="form-control" id="fname" name="fname" aria-describedby="First Name" value="<?php echo $student['fname'] ?>">
         </div>
         <div class="mb-3">
           <label for="lname" class="form-label">Last Name</label>
